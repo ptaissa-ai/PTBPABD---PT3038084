@@ -13,9 +13,9 @@
 SELECT
     i.ID,
     i.name,
-    COUNT(t.course_id) AS [Number of sections]
+    COUNT(t.course_id) AS [Number of sections] --Conta quantas seções foram ministradas pelo instrutor
 FROM dbo.instructor i
-LEFT JOIN dbo.teaches t
+LEFT JOIN dbo.teaches t -- usamos LEFT JOIN porque queremos manter todos os instrutores-- usamos LEFT JOIN porque queremos manter todos os instrutores mesmo que eles não tenham registros na tabela teaches
     ON i.ID = t.ID
 GROUP BY i.ID, i.name
 ORDER BY i.ID;
@@ -69,12 +69,12 @@ ORDER BY s.course_id, s.sec_id, name;
 
 IF OBJECT_ID('dbo.grade_points', 'U') IS NULL
 BEGIN
-    CREATE TABLE dbo.grade_points (
+    CREATE TABLE dbo.grade_points ( -- cria uma tabela para armazenar as notas
         grade VARCHAR(2) PRIMARY KEY,
         points DECIMAL(2,1)
     );
 
-    INSERT INTO dbo.grade_points (grade, points) VALUES
+    INSERT INTO dbo.grade_points (grade, points) VALUES -- cria uma conversão das notas numéricas para letras
     ('A+', 4.0),
     ('A', 3.7),
     ('A-', 3.4),
@@ -144,4 +144,4 @@ JOIN dbo.grade_points gp
 -- CONSULTA PARA TESTAR A VIEW
 
 SELECT *
-FROM dbo.coeficiente_rendimento;
+FROM dbo.coeficiente_rendimento; -- usamos a view parta não usar select todas as vezes, a view apenas mostra uma consulta ja salva. 
